@@ -1,0 +1,38 @@
+    <form name="entryForm" role="form" novalidate>
+        <div class="form-group controls" ng-class="{error: entryForm.distance.$invalid}">
+          <label for="distance">Distance (km)</label>
+          <input type="text" name="distance" ng-model="entry.distance" class="form-control" required>
+          <span ng-show="entryForm.distance.$error.required" class="help-block">
+              Required</span>
+        </div>
+
+        <div class="form-group controls" ng-class="{error: entryForm.date.$invalid}">
+          <label for="date">Date</label>
+          <div name="date" ng-model="entry.date" required ui-date="dateOptions" ui-date-format="yy-mm-dd"></div>
+          <span ng-show="entryForm.date.$error.required" class="help-block">
+              Required</span>
+        </div>
+
+        <div class="form-group controls" ng-class="{error: entryForm.priority.$invalid}">
+            <label for="duration">Duration</label>
+            <div range-slider pin-handle="min" attach-handle-values
+                prevent-equal-min-max step="sliderConfig.step"
+                min="sliderOptions.min" max="sliderOptions.max"
+                model-max="entry.duration_minutes"
+                filter="minutes2hours"></div>
+            <span ng-show="entryForm.priority.$error.required" class="help-block">
+              Required</span>
+        </div>
+
+        <div class="btn-group">
+            <a href="#/" class="btn">Cancel</a>
+        </div>
+        <div class="btn-group">
+            <button ng-click="saveEntry()" ng-disabled="isClean() || entryForm.$invalid"
+                class="btn btn-primary">Save</button>
+        </div>
+        <div class="btn-group">
+            <button ng-click="removeEntry()"
+                ng-show="entry.id" class="btn btn-danger">Delete</button>
+        </div>
+      </form>

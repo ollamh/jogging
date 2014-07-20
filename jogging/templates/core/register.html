@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+      <form class="form-signin" role="form" method="post">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign up</h2>
+        {{ form.username.errors }}
+        <input type="text" class="form-control" name="username" placeholder="Login" value="{{ form.username.value|default_if_none:'' }}" required autofocus />
+        {{ form.password1.errors }}
+        <input type="password" class="form-control" name="password1" placeholder="Password" required />
+        {{ form.password2.errors }}
+        <input type="password" class="form-control" name="password2" placeholder="Repeat password" required />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      </form>
+    </div>
+{% endblock %}

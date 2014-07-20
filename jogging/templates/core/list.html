@@ -1,0 +1,35 @@
+<div class="container">
+    <a href="#/new" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-plus"></span> Add entry</a>
+    <strong>Jogging from</strong> <input ui-date="dateOptions1" type="text" ng-model="date_start" class="search-query" placeholder="Start date" /> <strong>to</strong>
+            <input ui-date="dateOptions2" type="text" ng-model="date_finish" class="search-query" placeholder="End date" />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Distance</th>
+                <th>Duration</th>
+                <th>Av.speed</th>
+            </tr>
+        </thead>
+        <tbody ng-model="entries">
+        {% verbatim %}
+            <tr
+                ng-repeat="entry in filteredEntries = (entries | dateFilter: date_start:date_finish)"
+                ng-show="entry">
+                <td>{{entry.date | date: 'MM/dd/yyyy'}}</td>
+                <td>{{entry.distance}} km</td>
+                <td>{{entry.duration}}</td>
+                <td>{{entry.average_speed | number: 2}} kmph</td>
+                <td>
+                    <a href="#/edit/{{entry.id}}"><i class="glyphicon-pencil glyphicon"></i></a>
+                </td>
+            </tr>
+            <tr>
+               <td colspan="5">
+                   Total: <mark>{{ totalKm() }} km</mark> with time <mark>{{ totalTime() }}</mark> and average speed <mark>{{ totalSpeed() | number: 2}} kmph</mark>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endverbatim %}
